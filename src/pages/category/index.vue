@@ -20,7 +20,7 @@
             <ul>
               <li class="cate3"
                   v-for="(cate3, index3) in cate2.children"
-                  :key="index3">
+                  :key="index3" @click="toSearchList(cate3.cat_name)">
                 <img :src="cate3.cat_icon"
                      alt="">
                 <span>{{cate3.cat_name}}</span>
@@ -57,6 +57,9 @@ export default {
         this.categories = data
         // console.log(data)
       })
+    },
+    toSearchList (name) {
+      wx.navigateTo({ url: '/pages/search_list/main?keyword=' + name })
     }
   }
 }
