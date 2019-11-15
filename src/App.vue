@@ -6,4 +6,7 @@ export default {
 
 <style>
 
+page{
+  color:#333;
+}
 </style>
