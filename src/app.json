@@ -7,15 +7,14 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#eb4450",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#333",
     "selectedColor": "#eb4450",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/home/main",
         "text": "首页",
         "iconPath": "/static/images/icon_home@3x.png",
