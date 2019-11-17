@@ -23,6 +23,7 @@
 	"projectname": "mpvue-yougou39",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"libVersion": "2.9.2",
 	"condition": {
 		"search": {
 			"current": -1,

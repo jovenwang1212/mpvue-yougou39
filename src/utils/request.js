@@ -1,5 +1,6 @@
 // 设置基地址
-const BASE_URL = 'https://www.uinav.com'
+// const BASE_URL = 'https://www.uinav.com'
+const BASE_URL = 'https://ugo.botue.com'
 function request (options) {
   return new Promise((resolve, reject) => {
     // 默认显示loading
