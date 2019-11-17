@@ -59,7 +59,7 @@
 					"id": 1,
 					"name": "搜索列表",
 					"pathName": "pages/search_list/main",
-					"query": "keyword= 华为手机",
+					"query": "keyword=小米",
 					"scene": null
 				}
 			]

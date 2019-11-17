@@ -66,6 +66,8 @@ export default {
 </script>
 
 <style lang="less">
+@import url('../../../static/css/index.less');
+
 .main {
   display: flex;
   position: absolute;
@@ -84,7 +86,7 @@ export default {
       border-bottom: 1rpx solid #eee;
       box-sizing: border-box;
       &.active {
-        color: #eb4450;
+        color: @red;
         background-color: #fff;
         position: relative;
         &::before {

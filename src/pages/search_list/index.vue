@@ -1,24 +1,30 @@
 <template>
   <div>
-    <div class="header">
-      <icon type="search"
-            size="16"
-            color="#bcbcbc">
-      </icon>
-      <input type="text"
-             v-model="keyword" confirm-type="search" @confirm="reload">
+    <div class="top" :style="{position:isFixed?'fixed':'static'}">
+      <div class="header">
+        <icon type="search"
+              size="16"
+              color="#bcbcbc">
+        </icon>
+        <input type="text"
+               v-model="keyword"
+               confirm-type="search"
+               @confirm="reload">
+      </div>
+      <!-- filter -->
+      <ul class="filter-menu">
+        <li v-for="(item, index) in menuList"
+            :key="index"
+            :class="{active:activeIndex===index}"
+            @click="activeIndex=index">{{item}}</li>
+      </ul>
     </div>
-    <!-- filter -->
-    <ul class="filter-menu">
-      <li v-for="(item, index) in menuList"
-          :key="index"
-          :class="{active:activeIndex===index}"
-          @click="activeIndex=index">{{item}}</li>
-    </ul>
 
     <!-- 商品列表 -->
-    <ul class="list">
-      <li class="goods-item" v-for="item in goodsList" :key="item.goods_id">
+    <ul class="list" :style="{marginTop:isFixed?'220rpx':'0'}">
+      <li class="goods-item"
+          v-for="item in goodsList"
+          :key="item.goods_id">
         <img :src="item.goods_small_logo"
              alt="">
         <div class="right">
@@ -27,7 +33,8 @@
         </div>
       </li>
     </ul>
-    <p class="btm-txt" v-show="isLastPage">--我是有底线的--</p>
+    <p class="btm-txt"
+       v-show="isLastPage">--我是有底线的--</p>
   </div>
 </template>
 
@@ -45,19 +52,21 @@ export default {
       keyword: '',
       goodsList: [],
       // 默认不是最后一页
-      isLastPage: false
+      isLastPage: false,
+      isFixed: false
     }
   },
   onLoad (options) {
-    this.pageNum = 1
-    this.isRequest = false
-
     this.keyword = options.keyword
-    this.getGoodsList()
+    this.reload()
   },
   onPullDownRefresh () {
     // console.log('ok')
+    this.isFixed = false
     this.reload()
+  },
+  onPageScroll () {
+    this.isFixed = true
   },
   onReachBottom () {
     // 加载下一页
@@ -68,6 +77,8 @@ export default {
     reload () {
       // 显示第一页
       this.pageNum = 1
+      this.isLastPage = false
+      this.isRequest = false
       // 清空数组
       this.goodsList = []
       this.getGoodsList()
@@ -102,6 +113,17 @@ export default {
 </script>
 
 <style lang="less">
+
+.top{
+  position:fixed;
+  top:0;
+  background-color: #fff;
+}
+
+.list{
+  margin-top:220rpx;
+}
+
 .header {
   height: 120rpx;
   background-color: #eee;
@@ -151,7 +173,7 @@ export default {
 .right {
   flex: 1;
   .price {
-    margin-top:68rpx;
+    margin-top: 68rpx;
     color: #eb4450;
     font-size: 24rpx;
     span {
@@ -159,7 +181,7 @@ export default {
     }
   }
 }
-.btm-txt{
+.btm-txt {
   height: 60rpx;
   text-align: center;
   line-height: 60rpx;

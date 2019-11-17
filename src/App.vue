@@ -4,7 +4,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 page {
   color: #333;
 }
