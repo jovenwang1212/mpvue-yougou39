@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top" :style="{position:isFixed?'fixed':'static'}">
-      <div class="header">
+      <!-- <div class="header">
         <icon type="search"
               size="16"
               color="#bcbcbc">
@@ -10,7 +10,8 @@
                v-model="keyword"
                confirm-type="search"
                @confirm="reload">
-      </div>
+      </div> -->
+      <Search @search="doSearch" :query="keyword"/>
       <!-- filter -->
       <ul class="filter-menu">
         <li v-for="(item, index) in menuList"
@@ -39,8 +40,12 @@
 </template>
 
 <script>
+import Search from '@/components/search'
 const PAGE_SIZE = 6
 export default {
+  components: {
+    Search
+  },
   data () {
     return {
       menuList: [
@@ -74,6 +79,10 @@ export default {
     this.getGoodsList()
   },
   methods: {
+    doSearch (data) {
+      this.keyword = data
+      this.reload()
+    },
     // 跳转到商品详情
     toItem (goodsId) {
       wx.navigateTo({ url: '/pages/item/main?goodsId=' + goodsId })
@@ -126,28 +135,6 @@ export default {
 
 .list{
   margin-top:220rpx;
-}
-
-.header {
-  height: 120rpx;
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  icon {
-    position: absolute;
-    left: 44rpx;
-    top: 48rpx;
-  }
-  input {
-    height: 60rpx;
-    width: 718rpx;
-    background-color: #fff;
-    border-radius: 4rpx;
-    padding-left: 80rpx;
-    font-size: 24rpx;
-  }
 }
 
 .filter-menu {

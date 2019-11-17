@@ -1,6 +1,6 @@
 <template>
  <!-- 头部 -->
-    <div class="header">
+    <div class="header" @click="toSearch">
       <icon type="search"
             size="16"
             color="#bbb;">
@@ -11,11 +11,15 @@
 
 <script>
 export default {
-
+  methods: {
+    toSearch () {
+      wx.navigateTo({ url: '/pages/search/main' })
+    }
+  }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .header {
   height: 100rpx;
   padding: 0 16rpx;
