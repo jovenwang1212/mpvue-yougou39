@@ -24,7 +24,7 @@
     <ul class="list" :style="{marginTop:isFixed?'220rpx':'0'}">
       <li class="goods-item"
           v-for="item in goodsList"
-          :key="item.goods_id">
+          :key="item.goods_id" @click="toItem(item.goods_id)">
         <img :src="item.goods_small_logo"
              alt="">
         <div class="right">
@@ -74,6 +74,10 @@ export default {
     this.getGoodsList()
   },
   methods: {
+    // 跳转到商品详情
+    toItem (goodsId) {
+      wx.navigateTo({ url: '/pages/item/main?goodsId=' + goodsId })
+    },
     reload () {
       // 显示第一页
       this.pageNum = 1

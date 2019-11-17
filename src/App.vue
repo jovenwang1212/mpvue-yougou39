@@ -5,6 +5,7 @@ export default {
 </script>
 
 <style lang="less">
+@import url('../static/css/iconfont.css');
 page {
   color: #333;
 }
