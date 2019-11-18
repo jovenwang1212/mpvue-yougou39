@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .header {
   height: 100rpx;
   padding: 0 16rpx;
