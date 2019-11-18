@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <input type="text" v-model="keyword" confirm-type="search">
+    <input type="text" v-model="keyword" confirm-type="search" @confirm="confirmHandler">
     <icon class="search-icon"
           type="search"
           size="16">
@@ -15,9 +15,24 @@
 
 <script>
 export default {
+  props: ['query'],
   data () {
     return {
-      keyword: ''
+      keyword: this.query
+    }
+  },
+  methods: {
+    confirmHandler () {
+      if (this.keyword) {
+        // 子传父
+        this.$emit('confirm', this.keyword)
+      }
+    }
+  },
+  watch: {
+    query (newValue) {
+      // console.log(newValue)
+      this.keyword = newValue
     }
   }
 }
