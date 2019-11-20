@@ -29,6 +29,7 @@ export default {
   },
   onShow () {
     this.keywordList = wx.getStorageSync('keywordList') || []
+    this.query = ''
   },
   methods: {
     // 删掉keywrodList

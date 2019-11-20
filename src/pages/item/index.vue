@@ -60,11 +60,11 @@
         <span>联系客服</span>
         <button open-type="contact">客服</button>
       </div>
-      <div class="icon-text">
+      <div class="icon-text" @click="toCart">
         <span class="iconfont icon-cart"></span>
         <span>购物车</span>
       </div>
-      <div class="btn add-cart-btn">加入购物车</div>
+      <div class="btn add-cart-btn" @click="add2Cart">加入购物车</div>
       <div class="btn buy-btn">立即购买</div>
     </div>
   </div>
@@ -94,6 +94,33 @@ export default {
     this.getGoodsDetail(goodsId)
   },
   methods: {
+    add2Cart () {
+      let cart = wx.getStorageSync('cart') || {}
+      let goodsId = this.goods.goods_id
+      // 第一次添加
+      // if (!cart[goodsId]) {
+      //   cart[goodsId] = {
+      //     num: 1,
+      //     checked: true
+      //   }
+      // } else {
+      //   // 第N次添加
+      //   // 在购物车页面，去勾了商品,num++,checked:true
+      //   // 在购物车页面，勾选了商品,num++,check:True
+      //   cart[goodsId] = {
+      //     num: cart[goodsId].num++,
+      //     checked: true
+      //   }
+      // }
+      cart[goodsId] = {
+        checked: true,
+        num: cart[goodsId] ? (cart[goodsId].num + 1) : 1
+      }
+      wx.setStorageSync('cart', cart)
+    },
+    toCart () {
+      wx.switchTab({ url: '/pages/cart/main' })
+    },
     // 预览图片
     previewImg (current) {
       let urls = []
