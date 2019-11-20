@@ -1,6 +1,6 @@
 // 设置基地址
-// const BASE_URL = 'https://www.uinav.com'
-const BASE_URL = 'https://ugo.botue.com'
+const BASE_URL = 'https://www.uinav.com'
+// const BASE_URL = 'https://ugo.botue.com'
 function request (options) {
   return new Promise((resolve, reject) => {
     // 默认显示loading
@@ -13,6 +13,7 @@ function request (options) {
       url: BASE_URL + options.url,
       data: options.data || {},
       method: options.method || 'GET',
+      header: options.header,
       // 不需要设置content-type
       success: res => {
         let { meta, message } = res.data

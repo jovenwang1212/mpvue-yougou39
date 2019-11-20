@@ -80,6 +80,20 @@
 					"id": -1,
 					"name": "购物车",
 					"pathName": "pages/cart/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "登录",
+					"pathName": "pages/login/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "支付",
+					"pathName": "pages/pay/main",
 					"scene": null
 				}
 			]
