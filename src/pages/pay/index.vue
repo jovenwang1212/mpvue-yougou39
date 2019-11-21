@@ -128,9 +128,11 @@ export default {
           ...res.pay,
           success: res => {
             console.log('支付成功')
+            wx.navigateTo({ url: '/pages/order_result/main' })
           },
           fail: () => {
             console.log('支付失败')
+            wx.navigateTo({ url: '/pages/order_result/main?orderNumber=' + orderNumber })
           }
         })
       })
@@ -144,6 +146,7 @@ export default {
           goods_price: v.goods_price
         })
       })
+      return list
     },
     getFilterCartIds (cart) {
       let idsArr = []
@@ -170,6 +173,8 @@ export default {
 
       // 没有ids是空的话，阻止发请求
       if (!ids) {
+        // 需要重置goodsList
+        this.goodsList = []
         return
       }
       this.$request({

@@ -28,8 +28,9 @@ export default {
               signature: detail.signature
             }
           }).then(res => {
-            // console.log(res)
+            console.log(res)
             wx.setStorageSync('token', res.token)
+            wx.setStorageSync('userInfo', detail.userInfo)
             wx.navigateBack()
           })
         }

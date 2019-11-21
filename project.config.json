@@ -94,6 +94,28 @@
 					"id": -1,
 					"name": "支付",
 					"pathName": "pages/pay/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/order_detail/main",
+					"query": "orderNumber=HMDD20191121000000000555",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/me/main",
+					"query": "orderNumber=HMDD20191121000000000555",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单列表",
+					"pathName": "pages/order/main",
+					"query": "index=1",
 					"scene": null
 				}
 			]

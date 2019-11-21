@@ -8,7 +8,10 @@
     "pages/item/main",
     "pages/search/main",
     "pages/login/main",
-    "pages/pay/main"
+    "pages/pay/main",
+    "pages/order/main",
+    "pages/order_result/main",
+    "pages/order_detail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
