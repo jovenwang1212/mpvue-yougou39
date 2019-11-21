@@ -99,28 +99,7 @@ export default {
       wx.navigateTo({ url: '/pages/pay/main?goodsId=' + this.goods.goods_id })
     },
     add2Cart () {
-      let cart = wx.getStorageSync('cart') || {}
-      let goodsId = this.goods.goods_id
-      // 第一次添加
-      // if (!cart[goodsId]) {
-      //   cart[goodsId] = {
-      //     num: 1,
-      //     checked: true
-      //   }
-      // } else {
-      //   // 第N次添加
-      //   // 在购物车页面，去勾了商品,num++,checked:true
-      //   // 在购物车页面，勾选了商品,num++,check:True
-      //   cart[goodsId] = {
-      //     num: cart[goodsId].num++,
-      //     checked: true
-      //   }
-      // }
-      cart[goodsId] = {
-        checked: true,
-        num: cart[goodsId] ? (cart[goodsId].num + 1) : 1
-      }
-      wx.setStorageSync('cart', cart)
+      this.$store.commit('add2Cart', this.goods.goods_id)
     },
     toCart () {
       wx.switchTab({ url: '/pages/cart/main' })

@@ -62,14 +62,7 @@ export default {
     }
   },
   onHide () {
-    let cart = {}
-    this.goodsList.forEach(v => {
-      cart[v.goods_id] = {
-        num: v.num,
-        checked: v.checked
-      }
-    })
-    wx.setStorageSync('cart', cart)
+    this.$store.commit('updateCart', this.goodsList)
   },
   computed: {
     totalPrice () {
@@ -134,7 +127,7 @@ export default {
     },
     getGoodsList () {
       // 取购物车数据
-      let cart = wx.getStorageSync('cart') || {}
+      let cart = this.$store.getters.getCart
 
       let ids = Object.keys(cart).join(',')
       // 没有ids是空的话，阻止发请求

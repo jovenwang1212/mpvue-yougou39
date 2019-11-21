@@ -1,6 +1,9 @@
 <script>
 export default {
-
+  // 小程序隐藏时把vuex cart存储到storage
+  onHide () {
+    this.$store.commit('storeCart')
+  }
 }
 </script>
 
