@@ -106,13 +106,7 @@ export default {
       })
     },
     arrangeCart () {
-      let cart = wx.getStorageSync('cart')
-      for (let key in cart) {
-        if (cart[key].checked) {
-          delete cart[key]
-        }
-      }
-      wx.setStorageSync('cart', cart)
+      this.$store.commit('arrangeCart')
     },
     doPay (orderNumber) {
       this.$request({
@@ -166,7 +160,7 @@ export default {
         ids = this.goodsId
       } else {
         // 取购物车数据
-        cart = wx.getStorageSync('cart') || {}
+        cart = this.$store.getters.getCart
         // 过滤掉未被checked的cart
         ids = this.getFilterCartIds(cart)
       }

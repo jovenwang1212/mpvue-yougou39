@@ -62,6 +62,8 @@ export default {
     }
   },
   onHide () {
+    // 清空
+    this.goodsList = []
     this.$store.commit('updateCart', this.goodsList)
   },
   computed: {

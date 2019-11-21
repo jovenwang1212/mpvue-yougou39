@@ -30,6 +30,14 @@ const store = new Vuex.Store({
           checked: v.checked
         }
       })
+    },
+    arrangeCart (state) {
+      let cart = state.cart
+      for (let key in cart) {
+        if (cart[key].checked) {
+          delete cart[key]
+        }
+      }
     }
   },
   getters: {
