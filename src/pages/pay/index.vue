@@ -50,7 +50,8 @@ export default {
       goodsList: []
     }
   },
-  onLoad () {
+  onLoad (options) {
+    this.goodsId = options.goodsId
     this.getGoodsList()
   },
   computed: {
@@ -82,22 +83,13 @@ export default {
         })
         return
       }
-      // 如果未登录的话，跳转登陆
-      let token = wx.getStorageSync('token')
-      if (!token) {
-        wx.navigateTo({ url: '/pages/login/main' })
-        return
-      }
-
       // 创建订单
-      this.ceateOrder(token)
+      this.ceateOrder()
     },
-    ceateOrder (token) {
+    ceateOrder () {
       this.$request({
         url: '/api/public/v1/my/orders/create',
-        header: {
-          'Authorization': token
-        },
+        isAuth: true,
         method: 'POST',
         data: {
           order_price: this.totalPrice,
@@ -107,7 +99,7 @@ export default {
       }).then(res => {
         // console.log(res)
         let orderNumber = res.order_number
-        this.doPay(token, orderNumber)
+        this.doPay(orderNumber)
       }).finally(() => {
         // 不管是成功或者失败，都会删除掉购物车里面选中的商品
         this.arrangeCart()
@@ -122,12 +114,10 @@ export default {
       }
       wx.setStorageSync('cart', cart)
     },
-    doPay (token, orderNumber) {
+    doPay (orderNumber) {
       this.$request({
         url: '/api/public/v1/my/orders/req_unifiedorder',
-        header: {
-          'Authorization': token
-        },
+        isAuth: true,
         method: 'POST',
         data: {
           order_number: orderNumber
@@ -166,10 +156,17 @@ export default {
       return idsArr.join(',')
     },
     getGoodsList () {
-      // 取购物车数据
-      let cart = wx.getStorageSync('cart') || {}
-      // 过滤掉未被checked的cart
-      let ids = this.getFilterCartIds(cart)
+      let ids = ''
+      let cart = {}
+      // 如果从立即购买过来，不需要从购物车里面取数据
+      if (this.goodsId) {
+        ids = this.goodsId
+      } else {
+        // 取购物车数据
+        cart = wx.getStorageSync('cart') || {}
+        // 过滤掉未被checked的cart
+        ids = this.getFilterCartIds(cart)
+      }
 
       // 没有ids是空的话，阻止发请求
       if (!ids) {
@@ -178,13 +175,18 @@ export default {
       this.$request({
         url: `/api/public/v1/goods/goodslist?goods_ids=${ids}`
       }).then(data => {
-        // console.log(data)
-        // goodsList和cart数据的合并
-        data.forEach(v => {
-          let goods = cart[v.goods_id]
-          v = Object.assign(v, goods)
-        })
-
+        // 如果是从立即购买过来，num:1,checked
+        if (this.goodsId) {
+          console.log(data)
+          data[0].num = 1
+          data[0].checked = true
+        } else {
+          // goodsList和cart数据的合并
+          data.forEach(v => {
+            let goods = cart[v.goods_id]
+            v = Object.assign(v, goods)
+          })
+        }
         this.goodsList = data
       })
     },

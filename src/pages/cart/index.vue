@@ -54,6 +54,12 @@ export default {
   onShow () {
     // 根据购物车数据的id，发请求
     this.getGoodsList()
+    if (this.badgeNum) {
+      wx.setTabBarBadge({
+        index: 2, // tabBar的哪一项，从左边算起,
+        text: this.badgeNum.toString()
+      })
+    }
   },
   onHide () {
     let cart = {}
@@ -80,6 +86,9 @@ export default {
       return this.goodsList.reduce((sum, v) => {
         return sum + (v.checked ? v.num : 0)
       }, 0)
+    },
+    badgeNum () {
+      return this.goodsList.length
     },
     isAll: {
       get () {
